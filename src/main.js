@@ -2,7 +2,8 @@
 
 let Arequest,
     request = require('request'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    errors = require('errors');
 
 request.debug = false;
 
@@ -12,7 +13,7 @@ Arequest = (defaultOptions) => {
     Arequest.validateOptions(defaultOptions);
 
     arequest = async (url, options) => {
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             Arequest.validateOptions(options);
 
             options = _.assign({url: url}, options, defaultOptions);
@@ -21,7 +22,7 @@ Arequest = (defaultOptions) => {
 
             request(options, (error, response) => {
                 if (error) {
-                    throw new Error(error);
+                    return reject(new errors.RequestError(error, options, response));
                 }
 
                 resolve({
