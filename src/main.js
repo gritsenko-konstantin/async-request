@@ -3,7 +3,7 @@
 let Arequest,
     request = require('request'),
     _ = require('lodash'),
-    errors = require('errors');
+    errors = require('./errors');
 
 request.debug = false;
 
