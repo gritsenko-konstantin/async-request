@@ -22,8 +22,7 @@ Arequest = (defaultOptions) => {
 
             request(options, (error, response) => {
                 if (error) {
-                    //return reject(new errors.RequestError(error, options, response));
-                    throw new Error(error);
+                    return reject(new errors.RequestError(error, options, response));
                 }
 
                 resolve({
